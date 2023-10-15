@@ -1,4 +1,4 @@
-# Flutter Assessment Project
+# Flutter MA Demo Project
 
 This project demonstrates the implementation of a Flutter application that fetches data from an API, parses the response into a model, and integrates with native iOS (Swift) and Android (Kotlin) code to display platform-specific bottom sheets. Additionally, it implements one-state management, supports both dark and light modes, caches responses for offline use, and includes unit tests along with end-to-end testing for button clicks.
 
