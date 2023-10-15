@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/app_settings_provider.dart';
 import 'loading_widget.dart';
 
+/// Outlined button with custom style and loading widget when [isLoading] is true
 class AppOutlinedButton extends StatelessWidget {
   const AppOutlinedButton({
     Key? key,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ma_demo/modules/main_page/widgets/sample_ticket_widget.dart';
 import 'package:provider/provider.dart';
-
-import '../modules/main_page/widgets/ticket_widget.dart';
 import '../shared/providers/app_settings_provider.dart';
 
+/// Bottom sheet widget to show ticket
+@Deprecated('Use [SampleTicketWidget] instead')
 class TicketBottomSheet extends StatelessWidget {
   const TicketBottomSheet({super.key});
 
@@ -35,7 +36,7 @@ class TicketBottomSheet extends StatelessWidget {
               child: Container(
             color: p.isDarkMode ? Colors.black : Colors.grey.withOpacity(0.1),
                 child: const Center(
-                  child: TicketWidget(),
+                    child: SampleTicketWidget(),
                 )
           )),
         ],

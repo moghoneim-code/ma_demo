@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'loading_widget.dart';
 
+/// reusable [ElevatedButton] with loading state widget and disabled state
 
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({

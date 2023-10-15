@@ -1,8 +1,5 @@
-
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-
-
 
 import 'package:ma_demo/shared/widgets/app_elevated_button.dart';
 import 'package:ma_demo/shared/widgets/app_outlined_button.dart';
@@ -14,7 +11,6 @@ import '../../../shared/providers/app_settings_provider.dart';
 import '../../reservation/screens/reservation_screen.dart';
 import '../widgets/sample_ticket_widget.dart';
 import '../widgets/switch_mode_widget.dart';
-
 
 class MainPageScreen extends StatefulWidget {
   const MainPageScreen({
@@ -28,7 +24,6 @@ class MainPageScreen extends StatefulWidget {
 class _MainPageScreenState extends State<MainPageScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     Future.delayed(Duration.zero).then((_) {
       AdaptiveTheme.of(context).modeChangeNotifier.addListener(() {
         context.read<AppSettingProvider>().isDarkMode =
@@ -46,8 +41,13 @@ class _MainPageScreenState extends State<MainPageScreen> {
         child: SafeArea(
           child: Column(
             children: [
+              /// Switch Mode Widget is used to switch between dark and light mode
               const SwitchModeW(),
+
+              /// Spacer is used to add space between top and bottom widgets
               const Spacer(),
+
+              /// Buttons to show the bottom sheets for IOS , Android And Dart Bottom Sheet
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
@@ -56,15 +56,18 @@ class _MainPageScreenState extends State<MainPageScreen> {
                 child: AppElevatedButton(
                     height: 70,
                     title: 'Open Reservation',
+
+                    /// This method is used to show the cupertino bottom sheet in Dart
+                    /// [ReservationScreen] is the screen that will be shown in the bottom sheet
                     onPressed: () => showCupertinoModalBottomSheet(
                         context: context,
                         builder: (context) => Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
                             ),
-                          ),
                             child: const ReservationScreen()))),
               ),
               Padding(
@@ -85,6 +88,7 @@ class _MainPageScreenState extends State<MainPageScreen> {
                   ),
                   child: TextButton(
                       onPressed: () {
+                        /// This method is used to show the android bottom sheet in Dart
                         BottomSheetService.showFlutterBottomSheet();
                         showCupertinoBottomSheet();
                       },
@@ -102,6 +106,7 @@ class _MainPageScreenState extends State<MainPageScreen> {
     );
   }
 
+  /// This method is used to show the cupertino bottom sheet in Dart
   void showCupertinoBottomSheet() async {
     showCupertinoModalBottomSheet(
         context: context,

@@ -1,6 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 
+/// reusable [DottedLine] widget with default values
 class DashedDDivider extends StatelessWidget {
   const DashedDDivider({super.key});
 

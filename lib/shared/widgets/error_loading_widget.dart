@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constants/k_images.dart';
 import '../../Network/errors/server_error.dart';
 
+
+/// reusable [ErrorLoadingWidget] widget with default values and optional [onTryAgain] callback
 class ErrorLoadingWidget extends StatefulWidget {
   final Object? error;
   final VoidCallback? onTryAgain;
@@ -53,9 +53,10 @@ class _ErrorLoadingWidgetState extends State<ErrorLoadingWidget> {
             Text(
               errorMessage,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontSize: 16
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(fontSize: 16),
             ),
             const SizedBox(height: 10),
             const Icon(

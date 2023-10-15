@@ -34,8 +34,9 @@ class _HotelInfoState extends State<HotelInfo> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    /// get the avatar images from the tickets to show them in the trailing of the expansion tile
     for (var i = 0; i < widget.tickets.length; i++) {
+      /// add the avatar image to the list of avatar images
       _avatarImages.add(widget.tickets[i].ticketUserData!.avatar!);
     }
     super.initState();
@@ -43,13 +44,18 @@ class _HotelInfoState extends State<HotelInfo> {
 
   @override
   Widget build(BuildContext context) {
+    /// [AppSettingProvider] to get the dark mode value
     final p = context.watch<AppSettingProvider>();
+
+    /// [Theme] to get the theme data
+    /// [ListView.builder] to build the list of stays
     final theme = Theme.of(context);
     return ListView.builder(
         shrinkWrap: true,
         itemCount: widget.stays.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
+          /// [isLast] to check if the current index is the last index in the list of stays to unexpand the expansion tile
           final isLast = index == widget.stays.length - 1;
           return Theme(
             data: theme.copyWith(
@@ -77,11 +83,17 @@ class _HotelInfoState extends State<HotelInfo> {
                     ),
                   ),
                   children: [
+                    /// [Divider] to separate the guests part from the other parts
+                    /// [_buildGuestsPart] to build the guests name and image display part
                     _buildOrdinaryDivider(),
+
+                    ///
                     _buildGuestsPart(widget.stays[index].rooms!),
                     const SizedBox(
                       height: 12,
                     ),
+
+                    /// [_displayDataPart] to build the display data part of the reservation
                     _displayDataPart(
                       from: _formatDate(widget.startDate),
                       to: _formatDate(widget.endDate),
@@ -91,26 +103,40 @@ class _HotelInfoState extends State<HotelInfo> {
                     const SizedBox(
                       height: 10,
                     ),
+
+                    /// [_buildLocationPart] to build the location part of the reservation
+                    ///
                     _buildLocationPart(widget.stays[index]),
                     const SizedBox(
                       height: 10,
                     ),
+
+                    /// [_buildTickets] to build the tickets part of the reservation
+                    ///
                     _buildTickets(),
                     const SizedBox(
                       height: 16,
                     ),
+
                     const DashedDDivider(),
                     const SizedBox(
                       height: 16,
                     ),
+
+                    /// [_roomsWidget] to build the rooms part of the reservation
+                    ///
                     _roomsWidget(widget.stays[index].rooms!),
                     const SizedBox(
                       height: 16,
                     ),
+
+                    /// [_buildGallery] to build the gallery part of the reservation
                     _buildGallery(widget.stays[index]),
                     const SizedBox(
                       height: 16,
                     ),
+
+                    /// [_buildAmenities] to build the amenities part of the reservation
                     _buildAmenities(widget.stays[index].amenities!),
                   ],
                 ),
@@ -155,6 +181,7 @@ class _HotelInfoState extends State<HotelInfo> {
   }
 
   Widget _roomsWidget(List<Room> rooms) {
+    /// use the [ListView.builder] to build the list of rooms
     return ListView.builder(
       itemBuilder: (context, index) => _room(index: index, room: rooms[index]),
       itemCount: rooms.length,
@@ -220,6 +247,8 @@ class _HotelInfoState extends State<HotelInfo> {
           horizontal: 20,
           vertical: 8,
         ),
+
+        /// use the [GridView] to display the data in a grid view
         child: GridView(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -278,6 +307,8 @@ class _HotelInfoState extends State<HotelInfo> {
         ),
         Row(
           children: [
+            /// add the stars icons according to the stars number
+            /// for example if the stars number is 3 then add 3 stars icons
             for (var i = 0; i < stars; i++)
               const Icon(
                 Icons.star,
@@ -306,7 +337,11 @@ class _HotelInfoState extends State<HotelInfo> {
           const SizedBox(
             height: 12,
           ),
+
+          /// loop through the rooms to access the guests in each room
           for (var i = 0; i < rooms.length; i++)
+
+            /// and then show the guests name and image in each room
             for (var j = 0; j < rooms[i].guests!.length; j++)
               ListTile(
                   title: Text(
@@ -320,6 +355,8 @@ class _HotelInfoState extends State<HotelInfo> {
   }
 
   Widget _buildTrailingAvatars(List<String> images) {
+    /// use the [Stack] to put the avatars on each other AND use the [Positioned] to position the avatars slightly to the left
+    /// to show that there are more avatars
     return SizedBox(
         width: 100,
         child: Stack(
@@ -334,6 +371,8 @@ class _HotelInfoState extends State<HotelInfo> {
   }
 
   Widget _buildCircularAvatar(String imageUrl) {
+    /// cache the image to avoid loading it every time
+    /// use the [CachedNetworkImageProvider] to load the image
     return CircleAvatar(
       radius: 25,
       backgroundColor: Colors.white,
@@ -345,6 +384,7 @@ class _HotelInfoState extends State<HotelInfo> {
     final p = context.watch<AppSettingProvider>();
     return InkWell(
       onTap: () async {
+        /// use the google maps app to show the location of the hotel
         await url_launcher.launch(
             'https://www.google.com/maps/search/?api=1&query=${stay.lat},${stay.lng}');
       },
@@ -392,6 +432,8 @@ class _HotelInfoState extends State<HotelInfo> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: Stack(
                       children: [
+                        /// use the static map image as a background and put the location icon on it
+                        /// however in the real app we will use the google static map api to show image of the location
                         Image.asset(
                           'assets/images/map.png',
                           fit: BoxFit.cover,
@@ -462,6 +504,7 @@ class _HotelInfoState extends State<HotelInfo> {
     );
   }
 
+  /// format the date to be in the format of dd/mm/yyyy
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }

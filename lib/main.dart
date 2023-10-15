@@ -10,7 +10,11 @@ import 'modules/reservation/providers/reservation_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Get saved theme mode from local storage
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
+
+  /// pass saved theme mode to MyApp
   runApp(MyApp(savedThemeMode: savedThemeMode));
 }
 
@@ -22,27 +26,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
+      /// Light and dark themes
       light: KThemes.lightModeTheme,
+
+      /// each theme has its own colors , Styles, etc.
       dark: KThemes.darkModeTheme,
+
+      /// initial theme from saved theme mode
       initial: savedThemeMode ?? AdaptiveThemeMode.light,
+
+      /// wrap our app with MultiProvider to provide our providers to all app
       builder: (theme, darkTheme) => MultiProvider(
         providers: [
+          /// app setting provider that contains all app settings [ in this case only dark mode management ]
           ChangeNotifierProvider(create: (context) => AppSettingProvider()),
+
+          /// reservation provider that contains all reservation data and logic
+          ChangeNotifierProvider(create: (context) => ReservationProvider()),
         ],
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (context) => AppSettingProvider()),
-            ChangeNotifierProvider(create: (context) => ReservationProvider()),
-          ],
-          child: MaterialApp(
-            title: 'Adaptive Theme Demo',
-            theme: theme,
-            darkTheme: darkTheme,
-            home: const MainPageScreen(),
-          ),
+        child: MaterialApp(
+          title: 'MA Demo',
+          theme: theme,
+          darkTheme: darkTheme,
+          home: const MainPageScreen(),
         ),
       ),
     );
   }
 }
-
