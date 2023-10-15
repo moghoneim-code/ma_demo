@@ -1,0 +1,1 @@
+class DecodingError implements Exception {}
