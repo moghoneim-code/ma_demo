@@ -18,12 +18,7 @@ class ImagesGallery extends StatefulWidget {
 class _ImagesGalleryState extends State<ImagesGallery> {
   List<String> get images => widget.images;
 
-  List<String> get threeImages {
-    return images.length > 3 ? images.sublist(0, 3) : images;
-  }
-
-  bool get isMoreThanFour => images.length > 4;
-
+  /// [PageViewDialog] is a dialog to show the images in an interactive way
   void _openImagesGallery() {
     Navigator.push(
       context,
@@ -44,6 +39,9 @@ class _ImagesGalleryState extends State<ImagesGallery> {
       );
     }
     final size = MediaQuery.of(context).size;
+
+    /// [height] is the height of the list view
+    /// 33% of the screen height
     final height = size.height * 0.33;
     return SizedBox(
       height: height,
@@ -59,12 +57,15 @@ class _ImagesGalleryState extends State<ImagesGallery> {
                 child: ImageItem(
                     image: images[index],
                     size: Size(size.width * 0.44, height),
+
+                    /// [onTap] to open the [PageViewDialog]
                     onTap: _openImagesGallery),
               )),
     );
   }
 }
 
+/// [ImageItem] is a widget to show the image in the list view
 class ImageItem extends StatelessWidget {
   final VoidCallback? onTap;
   final String image;
@@ -136,6 +137,7 @@ class PageViewDialogState extends State<PageViewDialog> {
       body: SafeArea(
         child: Stack(
           children: [
+            /// [PageView.builder] to show the images in a page view in order to swipe between them
             PageView.builder(
               controller: _pageController,
               itemCount: widget.images.length,

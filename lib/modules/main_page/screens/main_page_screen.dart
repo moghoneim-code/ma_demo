@@ -1,11 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-
 import 'package:ma_demo/shared/widgets/app_elevated_button.dart';
 import 'package:ma_demo/shared/widgets/app_outlined_button.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-
 import '../../../services/bottom_sheet_service.dart';
 import '../../../shared/providers/app_settings_provider.dart';
 import '../../reservation/screens/reservation_screen.dart';
